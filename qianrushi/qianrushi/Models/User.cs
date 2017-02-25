@@ -12,5 +12,8 @@ namespace qianrushi.Models
         public string UserId;
         public string UserName;
         public string Password;
+        public string Group;
+        public string WorkPlace;
+        public string Contact;
     }
 }

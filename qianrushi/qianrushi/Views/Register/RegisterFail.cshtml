@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RegisterFail</title>
+    <script type="text/JavaScript">
+        var secs = 5; //倒计时的秒数
+        for (var i = secs; i >= 0; i--) {
+            window.setTimeout("doUpdate(" + i + ")", (secs - i) * 1000);
+        }
+        function doUpdate(num) {
+            document.getElementById("RegFail").innerHTML = "如果" + num + "后没有自动跳转，请点击这里进行跳转!";
+            if (num == 0) { window.location = 'Register' }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h1>注册失败,用户名已存在,如有疑问请联系管理员</h1> 
+        <a href="Register" id="RegFail"></a>
+    </div>
+</body>
+</html>

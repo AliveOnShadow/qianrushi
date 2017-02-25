@@ -8,6 +8,6 @@ namespace qianrushi.DAL
 {
     public class SqlConnectionString
     {
-        public static string sqlConnectionString = ConfigurationManager.ConnectionStrings["Constr"].ConnectionString;
+        public static string sqlConnectionString = ConfigurationManager.ConnectionStrings["ConStr"].ConnectionString;
     }
 }

@@ -1,0 +1,143 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Contact</title>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <link type="text/css" href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery.min.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            //找到所有的li标签
+            $("li").each(function (index) {
+
+                $(this).click(function () {
+                    //滑动门都要设置一个延迟时间，避免用户疯狂移动鼠标，导致服务器崩溃，这个很重要
+                    timeout = setTimeout(function () {
+                        $("div.divarea").removeClass("divarea");
+                        $("li.listli").removeClass("listli active");
+
+                        // $("div").eq(index).addClass("divarea"); //另一种写法是:$(div:eq(index)).addClass("divarea");
+                        $("div:eq(" + index + ")").addClass("divarea");
+                        $("li").eq(index).addClass("listli active");
+
+                    },
+                    200);
+                    $(this).mouseout(function () {
+                        clearTimeout(timeout);
+                    });
+                });
+            });
+        })
+    </script>
+
+    <style type="text/css">
+        table {
+            margin: 10px auto 0px auto;
+            width: 500px;
+         
+            text-indent: 6px;
+        }
+
+        th {
+            color: white;
+            background-color: #337ab7;
+        }
+        tr {
+            height :30px;
+        }
+        div {
+            width: 500px;
+           
+            margin: 0px auto;
+            display: none;
+        }
+
+        .divarea {
+            display: block;
+        }
+        /*分页*/
+        #page {
+            display: block;
+            height: 30px;
+        }
+
+        #pagelist {
+            width: 100px;
+            margin: 10px auto 0px auto;
+            display: block;
+        }
+        button {
+            color: white;
+            background-color: #337ab7;
+        }
+    </style>  
+</head>
+<body>
+    <div class="divarea">
+        <select id="SeaSel">
+            <option value="0">姓名</option>
+            <option value="1">联系方式</option>
+            <option value="2">班级</option>
+        </select>
+        <input type="text" placeholder="请输入要搜索的内容" id="SeaContact" />
+        <button onclick="Search()">搜索</button>
+        <button onclick="Reset()">查看完整通讯录</button>
+        <table border="1" id="contact">
+            <tr>
+                <th>姓名</th>
+                <th>联系方式</th>
+                <th>班级</th>
+            </tr>
+
+        </table>
+    </div>
+
+    <div id="page">
+        <ul class="pagination" id="pagelist">
+            <li class="listli active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        
+        var Json = eval(@Html.Raw(HttpUtility.HtmlDecode(ViewBag.Json)));
+        for(var i in Json)
+        {
+            var newtr = document.getElementById("contact").insertRow();
+            newtr.innerHTML="<td>" + Json[i].Name + "</ td> <td>" + Json[i].Contact + "</ td> <td>" + Json[i].Class + "</ td> ";
+        }
+        function Search() {
+            var key = document.getElementById("SeaContact").value.replace(/(^\s+)|(\s+$)/g, "");
+            if (key == "")
+                alert("搜索框输入不能为空!");
+            else {
+                var contable = document.getElementById("contact");
+                var rowlength = contable.rows.length;
+                var SeaType = document.getElementById("SeaSel").value;
+                for (var i = 1; i < rowlength; i++) {
+                    var SearchText = contable.rows[i].cells[SeaType].innerHTML;
+                    if (SearchText.match(key))       //match 函数筛选如果key为空，则返回true
+                        contable.rows[i].style.display = "";
+                    else
+                        contable.rows[i].style.display = "none";
+                }
+            }
+        }
+        function Reset() {
+            var contable = document.getElementById("contact");
+            var rowlength = contable.rows.length;
+            for(var i = 1; i < rowlength; i++)
+            {
+                contable.rows[i].style.display = "";
+            }
+        }
+    </script>
+</body>
+</html>

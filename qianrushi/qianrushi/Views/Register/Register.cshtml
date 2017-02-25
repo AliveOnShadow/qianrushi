@@ -1,7 +1,7 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
+
 
 <!DOCTYPE html>
 
@@ -9,9 +9,101 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Register</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        function check() {
+            if ($("#UserName").val() != "" && $("#Password").val() != "" && $("#CPassword").val() != "" && $("#Group").val() != "" && $("#Contact").val() != "") {
+                if ($("#Password").val() == $("#CPassword").val())
+                    return true;
+                else {
+                    alert("请检查输入信息");
+                    return false;
+                }
+            }
+            else {
+                alert("请检查输入信息");
+                return false;
+            }
+        }
+    </script>
+    <style>
+        .b {
+            background: url(/Contents/image/1.jpg) no-repeat;
+            background-size:cover;
+            padding-top:0;
+            margin-top:0;
+        }
+
+        .d {
+            
+            width: 100%;
+            height: 100%;
+        }
+
+        .f {
+            padding-left:160px;           
+            position:absolute;
+            background-color: #ffffff;
+            width: 30%;
+            height: 100%;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            left: 30%;
+
+        }
+        .h {padding-left:90px;  
+
+        }
+
+        .t {
+            width: 200px;
+            height: 20px;
+            
+          
+        }
+
+        .p {
+            height: 20px;
+        }
+
+        .p1 {
+            height: 0;
+        }
+
+        .sub {
+            width: 204px;
+            height: 30px;
+           
+        }
+    </style>
+
 </head>
-<body>
-    <div> 
+<body class="b">
+    <div class="d">
+        <form action="ReceiveRegister" method="post" onsubmit="return check()" class="f">
+            <h1 class="h">注册</h1>
+            <p class="p">请输入用户名:</p>
+            <input type="text" name="UserName" id="UserName" placeholder="请输入姓名" class="t" />
+            <p style="display:none;color:red" id="noUserName">用户名不能为空</p>
+            <p class="p">请输入密码:</p>
+            <input type="password" name="Password" id="Password" class="t" />
+            <p style="display:none;color:red" id="noPassword">密码不能为空</p>
+            <p class="p">请再一次输入密码:</p>
+            <input type="password" name="CPassword" id="CPassword" class="t" />
+            <p style="display:none;color:red" id="PasswordError">两次输入的密码不相同</p>
+            <p class="p">请输入组别:</p>
+            <input type="text" name="Group" id="Group" placeholder="请输入组别(方向)" class="t" />
+            <p style="display:none;color:red" id="noGroup">组别不能为空</p>
+            <p class="p">请联系方式:</p>
+            <input type="text" name="Contact" id="Contact" placeholder="请输入电话、微信或邮箱" class="t" />
+            <p style="display:none;color:red" id="noContact">联系方式不能为空</p>
+            <p class="p">请输入工作地点:</p>
+            <input type="text" name="WorkPlace" id="WorkPlace" placeholder="工作地点可以为空" class="t" />
+            <br />
+            <p class="p1"></p>
+            <input type="submit" name="RegSub" id="RegSub" value="注册" class="sub" />
+        </form>
     </div>
+    <script src="~/Scripts/Register.js"></script>
 </body>
 </html>
